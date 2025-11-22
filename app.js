@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import session from 'express-session';
-import passport from 'passport';
+import passport from './config/passport.js';
 import router from './routes/routes.js';
 import pool from './db/pool.js';
 import connectPgSimple from 'connect-pg-simple';
