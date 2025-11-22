@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+</head>
+<body>
+  <div>
+    <h2>Sign-Up Form</h2>
+    <form action="/sign-up" method="post">
+      <fieldset>
+        <legend>Personal Information</legend>
+        <label for="fname">
+          First Name
+          <input id="fname" name="fname" type="text" required>
+        </label>
+        <label for="lname">
+          Last Name
+          <input id="lname" name="lname" type="text" required>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Account Details</legend>
+        <label for="username">
+          Username
+          <input id="username" name="username" type="text" required>
+        </label>
+        <label for="password">
+          Password
+          <input id="password" name="password" type="password" required>
+        </label>
+        <label for="c-pass">
+          Confirm Password
+          <input id="c-pass" type="password" required>
+        </label>
+      </fieldset>
+      <button type="submit">Sign-Up</button>
+    </form>
+  </div>
+  <p>
+    Already have an account? Go back to <a href="/login">Log-In</a>
+  </p>
+</body>
+</html>
