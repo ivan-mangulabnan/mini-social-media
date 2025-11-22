@@ -8,6 +8,13 @@
 <body>
   <div>
     <h2>LOG-IN</h2>
+    <% if (isError) { %>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
     <form action="/login" method="post">
       <label for="username">
         USERNAME

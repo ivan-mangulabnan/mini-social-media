@@ -15,21 +15,32 @@ const __filepath = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filepath);
 const views = path.join(__dirname, 'views');
 const assetsPath = path.join(__dirname, 'public');
-const sessionOptions = {
-  store: new PgSession({ pool }),
-  secret: process.env.SECRET_KEY,
-  resave: false,
-  saveUninitialized: false
-};
 
 app.set('views', views);
 app.set('view engine', 'ejs');
 
-app.use(session(sessionOptions));
+app.use(session({ 
+  store: new PgSession({ 
+    pool, 
+    ttl: 5 * 60,
+    createTableIfMissing: true,
+    tableName: 'session'
+  }), 
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 5 * 60 * 1000
+  }
+}));
 app.use(passport.session());
 app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+})
 app.use(router);
 
 app.listen(process.env.PORT, (err) => {
