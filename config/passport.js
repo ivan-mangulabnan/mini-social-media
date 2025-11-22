@@ -1,12 +1,11 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
-import pool from "../db/pool.js";
+import db from "../db/queries/login.js";
 
 async function verify (username, password, done) {
   try {
-    const { rows } = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-    const user = rows[0];
+    const user = await db.getUserByUsername(username);
 
     if (!user) return done(null, false, { message: 'Please re-check username' });
     const match = await bcrypt.compare(user.password, password);
@@ -24,8 +23,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await pool.query('SELECT * FROM accounts WHERE id = $1', [id]);
-    const user = rows[0];
+    const user = await db.getAccountByID(id);
 
     done(null, user);
   } catch (err) {
