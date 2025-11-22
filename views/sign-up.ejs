@@ -8,6 +8,13 @@
 <body>
   <div>
     <h2>Sign-Up Form</h2>
+    <% if (isError) { %>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
     <form action="/sign-up" method="post">
       <fieldset>
         <legend>Personal Information</legend>
