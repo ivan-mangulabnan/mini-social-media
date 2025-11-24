@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be a Member</title>
+</head>
+<body>
+  <div>
+    <h1>Member Sign Up</h1>
+    <% if (errors.length > 0) { %>
+      <ul>
+        <% errors.forEach(err => { %>
+          <li><%= err %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <form action="/member-sign-up" method="post">
+      <input type="hidden" name="id" value="<%= user.id %>">
+      <label for="code">
+        SECRET CODE:
+        <input type="text" name="code" id="code" required>
+      </label>
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+</body>
+</html>

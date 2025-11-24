@@ -21,10 +21,10 @@ app.set('view engine', 'ejs');
 
 app.use(session({ 
   store: new PgSession({ 
-    pool, 
-    ttl: 5 * 60,
+    pool,
     createTableIfMissing: true,
-    tableName: 'session'
+    tableName: 'session',
+    pruneSessionInterval: 60 * 5
   }), 
   secret: process.env.SECRET_KEY,
   resave: false,

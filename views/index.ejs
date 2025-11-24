@@ -7,6 +7,10 @@
 </head>
 <body>
   <h1>Welcome, <%= user.fname %>!</h1>
+  <% if (!user.member) { %>
+    <a href="/member-sign-up">Be a Member</a>
+  <% } %>
+  <a href="/logout">LOGOUT</a>
   <form action="/" method="post">
     <input type="hidden" name="id" value="<%= user.id %>">
     <textarea name="message" placeholder="What's on your mind, <%= user.fname %>?" required></textarea>
@@ -18,7 +22,9 @@
     <% } else { %>
       <% posts.forEach(post => { %>
         <div>
-          <p>FROM: <%= user.member || user.id === post.owner_id ? `${post.fname} ${post.lname}` : 'Anonymous' %></p>
+          <p>
+            FROM: <%= user.member || user.id === post.owner_id ? `${post.fname} ${post.lname}` : 'Anonymous' %>
+          </p>
           <p>ON: <%= user.member || user.id === post.owner_id ? post.created_at : 'unknown' %></p>
           <p><%= post.message %></p>
         </div>

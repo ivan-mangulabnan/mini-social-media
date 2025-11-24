@@ -4,6 +4,14 @@ import passport from "passport";
 
 const loginRoute = Router();
 
+loginRoute.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+
+  next();
+})
+
 loginRoute.get('/', (req, res) => {
   res.render('login', { isError: false });
 })

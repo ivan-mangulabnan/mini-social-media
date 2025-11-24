@@ -3,14 +3,21 @@ import loginRoute from "./login.js";
 import signUpRoute from "./sign-up.js";
 import { body, matchedData, validationResult } from "express-validator";
 import db from '../db/queries/post.js';
+import memberRoute from "./member-sign-up.js";
+import logoutRoute from "./logout.js";
 
 const router = Router();
 
 router.use('/login', loginRoute);
 router.use('/sign-up', signUpRoute);
+router.use('/member-sign-up', memberRoute);
+router.use('/logout', logoutRoute);
 
 router.get('/', (req, res, next) => {
   if (!req.isAuthenticated()) return res.redirect('/login');
+  next();
+}, (req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   next();
 }, async (req, res, next) => {
   try {
