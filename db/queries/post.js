@@ -5,7 +5,7 @@ const createPost = async (id, message) => {
 }
 
 const getPosts = async () => {
-  const { rows } = await pool.query('SELECT p.*, a.fname, a.lname FROM posts AS p INNER JOIN accounts AS a ON p.owner_id = a.id ORDER BY created_at DESC');
+  const { rows } = await pool.query('SELECT p.*, a.fname, a.lname, a.member, a.admin FROM posts AS p INNER JOIN accounts AS a ON p.owner_id = a.id ORDER BY created_at DESC');
   return rows;
 }
 

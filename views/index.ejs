@@ -24,6 +24,8 @@
         <div>
           <p>
             FROM: <%= user.member || user.id === post.owner_id ? `${post.fname} ${post.lname}` : 'Anonymous' %>
+            <span><%= post.member ? 'club-member' : '' %></span>
+            <span><%= post.admin ? 'administrator' : '' %></span>
           </p>
           <p>ON: <%= user.member || user.id === post.owner_id ? post.created_at : 'unknown' %></p>
           <p><%= post.message %></p>
