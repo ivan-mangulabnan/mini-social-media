@@ -6,6 +6,7 @@ import db from '../db/queries/post.js';
 import memberRoute from "./member-sign-up.js";
 import logoutRoute from "./logout.js";
 import adminRoute from "./admin-sign-up.js";
+import deleteRoute from "./delete.js";
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.use('/login', loginRoute);
 router.use('/sign-up', signUpRoute);
 router.use('/member-sign-up', memberRoute);
 router.use('/admin-sign-up', adminRoute);
+router.use('/delete', deleteRoute);
 router.use('/logout', logoutRoute);
 
 router.get('/', (req, res, next) => {

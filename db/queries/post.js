@@ -9,4 +9,13 @@ const getPosts = async () => {
   return rows;
 }
 
-export default { createPost, getPosts };
+const deletePost = async (postID) => {
+  await pool.query('DELETE FROM posts WHERE id = $1', [postID]);
+}
+
+const isPostsFromOwner = async (userID, postID) => {
+  const { rows } = await pool.query('SELECT EXISTS (SELECT 1 FROM posts WHERE posts.owner_id = $1 AND posts.id = $2) AS existence', [userID, postID]);
+  return rows[0].existence;
+}
+
+export default { createPost, getPosts, deletePost, isPostsFromOwner };
