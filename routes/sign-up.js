@@ -30,7 +30,6 @@ signUpRoute.post('/', [
   if (!errors.isEmpty()) {
     res.locals.isError = true;
     res.locals.errors = errors.array();
-
     return res.render('sign-up');
   }
 

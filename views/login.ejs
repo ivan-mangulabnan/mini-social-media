@@ -4,30 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LogIn</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div>
-    <h2>LOG-IN</h2>
+  <header class="header">
+    <div class="header-content">
+        <h1 class="logo">SMC</h1>
+        <nav class="nav-buttons">
+          <a href="/sign-up" class="nav-link-btn">
+            Sign Up
+          </a>
+        </nav>
+    </div>
+  </header>
+  <div class="form-container">
+    <h2 class="form-title">Log In</h2>
+
     <% if (isError) { %>
-      <ul>
-        <% errors.forEach(error => { %>
-          <li><%= error.msg %></li>
-        <% }) %>
-      </ul>
+      <div id="login-error-display" class="error-display">
+        <ul class="error-list">
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
     <% } %>
-    <form action="/login" method="post">
-      <label for="username">
-        USERNAME
-        <input id="username" name="username" type="text" required>
-      </label>
-      <label for="password">
-        PASSWORD
-        <input id="password" name="password" type="password" required>
-      </label>
-      <button type="submit">LOGIN</button>
+
+    <form action="/login" method="post" class="form-layout">
+      <div class="form-field">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" required class="form-input">
+      </div>
+      <div class="form-field">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" required class="form-input">
+      </div>
+      <button type="submit" class="form-submit-btn">
+        Sign In
+      </button>
     </form>
-    <p>
-      Don't have an account yet? <a href="/sign-up">Sign-up here.</a>
+
+    <p class="form-footer-link">
+      Doesn't have an account? 
+      <a href="/sign-up" class="form-link">
+        Sign up now
+      </a>
     </p>
   </div>
 </body>

@@ -10,4 +10,9 @@ const getAccountByID = async (id) => {
   return rows[0];
 }
 
-export default { getUserByUsername, getAccountByID };
+const checkUserExistence = async (username) => {
+  const { rows } = await pool.query('SELECT EXISTS (SELECT 1 FROM users WHERE username = $1) AS existence', [username]);
+  return rows[0].existence;
+}
+
+export default { getUserByUsername, getAccountByID, checkUserExistence };

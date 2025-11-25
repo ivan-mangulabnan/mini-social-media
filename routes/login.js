@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body, matchedData, validationResult } from "express-validator";
 import passport from "passport";
+import db from '../db/queries/login.js';
 
 const loginRoute = Router();
 
@@ -17,7 +18,11 @@ loginRoute.get('/', (req, res) => {
 })
 
 loginRoute.post('/', [
-  body('username').trim().notEmpty().withMessage("username can't be empty"),
+  body('username').trim().notEmpty().withMessage("username can't be empty")
+    .custom(async (value, { req }) => {
+      const exists = await db.checkUserExistence(value);
+      if (!exists) throw new Error('username is either wrong or does not exist');
+    }),
   body('password').trim().notEmpty().withMessage("password can't be empty")
 ], (req, res, next) => {
   const errors = validationResult(req);

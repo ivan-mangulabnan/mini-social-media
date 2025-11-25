@@ -4,63 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SignUp</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div>
-    <h2>Sign-Up Form</h2>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">SMC</h1>
+      <nav class="nav-buttons">
+        <a href="/login" class="nav-link-btn">
+            Log In
+        </a>
+      </nav>
+    </div>
+  </header>
+  <div class="form-container" style="max-width: 32rem;">
+    <h2 class="form-title">Create Your Account</h2>
+
     <% if (isError) { %>
-      <ul>
-        <% errors.forEach(error => { %>
-          <li><%= error.msg %></li>
-        <% }) %>
-      </ul>
+      <div id="login-error-display" class="error-display">
+        <ul class="error-list">
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
     <% } %>
-    <form action="/sign-up" method="post">
-      <fieldset>
-        <legend>Personal Information</legend>
-        <label for="fname">
-          First Name
-          <input id="fname" name="fname" type="text" required>
-        </label>
-        <label for="lname">
-          Last Name
-          <input id="lname" name="lname" type="text" required>
-        </label>
-      </fieldset>
-      <fieldset>
-        <legend>Account Details</legend>
-        <label for="username">
-          Username
-          <input id="username" name="username" type="text" required>
-        </label>
-        <label for="password">
-          Password
-          <input id="password" name="password" type="password" required>
-        </label>
-        <label for="c-pass">
-          Confirm Password
-          <input id="c-pass" name="c-pass" type="password" required>
-        </label>
-      </fieldset>
-      <button type="submit">Sign-Up</button>
+    
+    <form action="/sign-up" method="post" class="form-layout">
+      <div class="form-split">
+        <div class="form-field">
+          <label for="first_name" class="form-label">First Name</label>
+          <input type="text" id="first_name" name="fname" required class="form-input">
+        </div>
+        <div class="form-field">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input type="text" id="last_name" name="lname" required class="form-input">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" required class="form-input">
+      </div>
+      <div class="form-field">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" required class="form-input">
+      </div>
+      <div class="form-field">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input type="password" id="confirm_password" name="c-pass" required class="form-input">
+      </div>
+      <button type="submit" class="form-submit-btn">
+        Create Account
+      </button>
     </form>
+    
+    <p class="form-footer-link">
+      Already have an account? 
+      <a href="/login" class="form-link">
+        Log in
+      </a>
+    </p>
   </div>
-  <p>
-    Already have an account? Go back to <a href="/login">Log-In</a>
-  </p>
-  <script>
-    const form = document.querySelector('form');
-    const password = document.querySelector('#password');
-    const confirmPassword = document.querySelector('#c-pass');
-
-    const handlePasswordConfirmation = (event) => {
-      if (password.value !== confirmPassword.value) {
-        event.preventDefault();
-        alert('Passwords do not match');
-      }
-    }
-
-    form.addEventListener('submit', handlePasswordConfirmation);
-  </script>
 </body>
 </html>
