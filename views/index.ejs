@@ -10,6 +10,9 @@
   <% if (!user.member) { %>
     <a href="/member-sign-up">Be a Member</a>
   <% } %>
+  <% if (!user.admin) { %>
+    <a href="/admin-sign-up">Be an Admin</a>
+  <% } %>
   <a href="/logout">LOGOUT</a>
   <form action="/" method="post">
     <input type="hidden" name="id" value="<%= user.id %>">

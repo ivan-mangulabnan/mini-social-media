@@ -5,12 +5,14 @@ import { body, matchedData, validationResult } from "express-validator";
 import db from '../db/queries/post.js';
 import memberRoute from "./member-sign-up.js";
 import logoutRoute from "./logout.js";
+import adminRoute from "./admin-sign-up.js";
 
 const router = Router();
 
 router.use('/login', loginRoute);
 router.use('/sign-up', signUpRoute);
 router.use('/member-sign-up', memberRoute);
+router.use('/admin-sign-up', adminRoute);
 router.use('/logout', logoutRoute);
 
 router.get('/', (req, res, next) => {
