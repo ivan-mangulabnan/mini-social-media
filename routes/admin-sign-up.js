@@ -24,12 +24,6 @@ adminRoute.post('/', (req, res, next) => {
 
   next();
 }, [
-  body('id').trim().notEmpty().withMessage('id should not be empty')
-    .isInt({ min: 1 }).withMessage('id should be greater than 0')
-    .custom((value, { req }) => {
-      if (parseInt(value) !== req.user.id) throw new Error('id do not match');
-      return true;
-    }),
   body('code').trim().notEmpty().withMessage('id should not be empty')
     .custom(value => {
       if (value !== 'ivansobrangpogi') throw new Error('Wrong code');
