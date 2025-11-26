@@ -6,6 +6,9 @@ import bcrypt from "bcryptjs";
 const signUpRoute = Router();
 
 signUpRoute.get('/', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
   res.render('sign-up', { isError: false });
 })
 

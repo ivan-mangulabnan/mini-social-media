@@ -11,12 +11,16 @@
     <div class="header-content">
       <h1 class="logo">SMC</h1>
       <nav class="nav-buttons">
-        <a href="/member-sign-up" class="nav-link-btn">
-          Be A Member
-        </a>
-        <a href="/admin-sign-up" class="nav-link-btn admin">
-          Be An Admin
-        </a>
+        <% if (!user.member) { %>
+          <a href="/member-sign-up" class="nav-link-btn">
+            Be A Member
+          </a>
+        <% } %>
+        <% if (!user.admin) { %>
+          <a href="/admin-sign-up" class="nav-link-btn admin">
+            Be An Admin
+          </a>
+        <% } %>
         <a href="/logout" class="logout-link">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" class="logout-icon">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -29,6 +33,7 @@
       </nav>
     </div>
   </header>
+  <div class="wrapper">
   <div class="create-post-card">
     <h2 class="create-post-header">Create a post</h2>
     <form action="/" method="post">
@@ -69,6 +74,7 @@
       <% }) %>
     <% } %>
     <p style="text-align: center; color: var(--color-text-medium); margin-top: 1rem; padding-bottom: 2rem;">— You've reached the end of the club feed —</p>
+  </div>
   </div>
 </body>
 </html>
