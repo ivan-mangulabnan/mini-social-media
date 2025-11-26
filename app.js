@@ -23,15 +23,11 @@ app.use(session({
   store: new PgSession({ 
     pool,
     createTableIfMissing: true,
-    tableName: 'session',
-    pruneSessionInterval: 60 * 5
+    tableName: 'session'
   }), 
   secret: process.env.SECRET_KEY,
   resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 60 * 60 * 1000
-  }
+  saveUninitialized: false
 }));
 app.use(passport.session());
 app.use(express.static(assetsPath));
