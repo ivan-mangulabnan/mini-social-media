@@ -2,15 +2,15 @@
 
 /* -------------------- GLOBAL STYLES -------------------- */
 :root {
-  --color-primary: #4f46e5; /* Indigo */
-  --color-primary-dark: #4338ca;
-  --color-text-dark: #1f2937;
-  --color-text-medium: #4b5563;
-  --color-background: #f6f9fc;
+  --color-primary: #4f46e5; /* Indigo 600 */
+  --color-primary-dark: #4338ca; /* Indigo 700 */
+  --color-text-dark: #1f2937; /* Gray 800 */
+  --color-text-medium: #4b5563; /* Gray 600 */
+  --color-background: #f6f9fc; /* Light Gray Blue */
   --color-card-background: #ffffff;
-  --color-border: #e5e7eb;
-  --color-success: #10b981;
-  --color-error: #ef4444;
+  --color-border: #e5e7eb; /* Gray 200 */
+  --color-success: #10b981; /* Emerald 500 */
+  --color-error: #ef4444; /* Red 500 */
   --color-error-light: #fef2f2;
   --color-error-border: #fca5a5;
 }
@@ -40,13 +40,33 @@ a, button {
   transition: all 0.2s ease-in-out;
 }
 
+.logout-link {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.logout-link:hover {
+  background-color: #d1d5db;
+}
+
+.logout-icon {
+  height: 2rem;
+}
+
 /* -------------------- HEADER -------------------- */
 .header {
   background-color: var(--color-card-background);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Updated shadow for a modern lift */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+.create-post-header {
+  margin-bottom: 1rem;
+  color: #444;
 }
 
 .header-content {
@@ -58,10 +78,20 @@ a, button {
   align-items: center;
 }
 
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-primary);
+}
+
+.logo:hover {
+  color: var(--color-primary-dark);
 }
 
 .nav-buttons {
@@ -78,8 +108,24 @@ a, button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.nav-link-text {
+  color: var(--color-text-medium);
+  font-weight: 500;
+  padding: 0.5rem 1rem; /* Added padding for better touch target */
+  border-radius: 0.5rem;
+}
+
 .nav-link-btn:hover {
   background-color: var(--color-primary-dark);
+}
+
+.nav-link-btn.admin:hover {
+  background-color: #d83c3c;
+}
+
+.nav-link-text:hover {
+  color: var(--color-primary);
+  background-color: #f3f4f6;
 }
 
 /* -------------------- MAIN CONTENT LAYOUT -------------------- */
@@ -107,48 +153,145 @@ a, button {
   padding: 1rem;
   background-color: var(--color-card-background);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 1px var(--color-border); /* Subtle border effect */
+}
+
+.feed-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .cta-group {
   display: flex;
   gap: 0.75rem;
+  /* Wrap buttons on small screens */
+  flex-wrap: wrap; 
+  justify-content: flex-end;
 }
 
 .cta-btn-base {
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-weight: 600; /* Made slightly bolder */
 }
-
+/* Added hover effects for CTA buttons */
 .cta-admin {
   color: var(--color-error);
   background-color: #fcebeb; /* Light Red */
+}
+.cta-admin:hover {
+  background-color: #f9dcdc;
 }
 
 .cta-member {
   color: var(--color-primary);
   background-color: #eef2ff; /* Light Indigo */
 }
+.cta-member:hover {
+  background-color: #e0e6ff;
+}
 
+
+/* -------------------- CREATE POST CARD -------------------- */
+.create-post-card {
+  width: 50rem;
+  background-color: var(--color-card-background);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Softer, modern shadow */
+  border: 1px solid var(--color-border);
+  margin: 1.5rem auto; /* Increased space below form */
+}
+
+.post-input-area {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.user-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.25rem; /* Align with textarea */
+}
+
+.post-form-inner {
+  flex-grow: 1;
+  width: 100%; /* Important for flex layout */
+}
+
+.post-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  resize: vertical;
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--color-text-dark);
+}
+
+.post-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.post-submit-btn {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  color: var(--color-card-background);
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-submit-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.post-form-footer {
+  display: flex;
+  justify-content: flex-end; /* Align button right */
+}
+
+/* -------------------- POST FEED -------------------- */
 .post-feed {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 50rem;
+  margin: 0 auto;
 }
 
 .post-card {
   background-color: var(--color-card-background);
   padding: 1.25rem;
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  /* Updated shadow for a stronger, modern effect */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--color-border);
-  transition: transform 0.1s;
+  transition: all 0.2s;
 }
 
 .post-card:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
 .post-header {
@@ -156,6 +299,8 @@ a, button {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed #f3f4f6; /* Lighter separator */
 }
 
 .author-info {
@@ -170,6 +315,37 @@ a, button {
   color: var(--color-text-dark);
 }
 
+/* Apply avatar style to post author */
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  /* background-color: #d1d5db; */
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* color: var(--color-text-dark); */
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.admin {
+  background-color: var(--color-error);
+  color: white;
+}
+.member {
+  background-color: var(--color-primary);
+  color: white;
+}
+.nonmember {
+  background-color: #d1d5db;
+  color: #333;
+}
+.both {
+  background-color: #9966CC;
+  color: #fff;
+}
+
 .badge-base {
   display: inline-flex;
   padding: 0.125rem 0.5rem;
@@ -177,6 +353,7 @@ a, button {
   font-size: 0.75rem;
   font-weight: 500;
   text-transform: capitalize;
+  margin-left: 0.5rem; /* Separate badge from name */
 }
 
 .badge-admin {
@@ -192,13 +369,15 @@ a, button {
 .post-date {
   font-size: 0.75rem;
   color: var(--color-text-medium);
+  font-weight: 500;
 }
 
 .post-content {
-  font-size: 0.9375rem;
-  color: var(--color-text-medium);
+  font-size: 1rem; /* Slightly larger font */
+  color: var(--color-text-dark); /* Darker content text */
   line-height: 1.6;
   white-space: pre-wrap;
+  margin-top: 0.5rem;
 }
 
 /* -------------------- FORM PAGES -------------------- */
@@ -318,6 +497,7 @@ a, button {
   padding: 0.75rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
+  display: none; /* Controlled by JS */
 }
 
 .error-list {

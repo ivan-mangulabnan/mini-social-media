@@ -37,17 +37,13 @@ router.post('/', (req, res, next) => {
  if (!req.isAuthenticated()) return res.redirect('/login');
  next();
 }, [
-  body('id').trim().notEmpty().withMessage('id should not be empty').isInt({ min: 1 }).withMessage('id should be a number').custom((value, { req }) => {
-    if (req.user.id !== parseInt(value)) throw new Error('id do not match');
-    return true;
-  }),
   body('message').trim().notEmpty().withMessage('message should not be empty')
 ], async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return next(new Error(JSON.stringify(errors.array())));
-  const { id, message } = matchedData(req, { locations: ['body'] });
+  const { message } = matchedData(req, { locations: ['body'] });
   try {
-    await db.createPost(id, message);
+    await db.createPost(req.user.id, message);
   } catch (err) {
     return next(err)
   }

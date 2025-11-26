@@ -4,38 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <h1>Welcome, <%= user.fname %>!</h1>
-  <% if (!user.member) { %>
-    <a href="/member-sign-up">Be a Member</a>
-  <% } %>
-  <% if (!user.admin) { %>
-    <a href="/admin-sign-up">Be an Admin</a>
-  <% } %>
-  <a href="/logout">LOGOUT</a>
-  <form action="/" method="post">
-    <input type="hidden" name="id" value="<%= user.id %>">
-    <textarea name="message" placeholder="What's on your mind, <%= user.fname %>?" required></textarea>
-    <button type="submit">POST</button>
-  </form>
-  <main>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">SMC</h1>
+      <nav class="nav-buttons">
+        <a href="/member-sign-up" class="nav-link-btn">
+          Be A Member
+        </a>
+        <a href="/admin-sign-up" class="nav-link-btn admin">
+          Be An Admin
+        </a>
+        <a href="/logout" class="logout-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" class="logout-icon">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier"> 
+              <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-9.5m7.5 3l3-3-3-3m-5-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5a2 2 0 002-2v-1"></path> 
+            </g>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+  <div class="create-post-card">
+    <h2 class="create-post-header">Create a post</h2>
+    <form action="/" method="post">
+      <div class="post-input-area">
+        <%
+          function badgeColorDecider(adminStatus, memberStatus) {
+            if (!adminStatus && !memberStatus) return 'nonmember';
+            if (adminStatus && memberStatus) return 'both';
+            if (!adminStatus && memberStatus) return 'member';
+            if (adminStatus && !memberStatus) return 'admin';
+          }
+        %>
+        <div class="user-avatar <%= badgeColorDecider(user.admin, user.member) %>">
+          <%= `${user.fname[0]} ${user.lname[0]}` %>
+        </div>
+        <div class="post-form-inner">
+          <textarea 
+              id="post_content" 
+              name="message" 
+              class="post-textarea" 
+              placeholder="What's on your mind, <%= user.fname %>?" 
+              required></textarea>
+          <div class="post-form-footer">
+            <button type="submit" class="post-submit-btn">
+              Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="post-feed">
     <% if (!posts) { %>
       <h2>Crickets over here, share something.</h2>
     <% } else { %>
       <% posts.forEach(post => { %>
-        <div>
-          <p>
-            FROM: <%= user.member || user.id === post.owner_id ? `${post.fname} ${post.lname}` : 'Anonymous' %>
-            <span><%= post.member ? 'club-member' : '' %></span>
-            <span><%= post.admin ? 'administrator' : '' %></span>
-            <a href="/delete/<%=post.id%>">Delete</a>
-          </p>
-          <p>ON: <%= user.member || user.id === post.owner_id ? post.created_at : 'unknown' %></p>
-          <p><%= post.message %></p>
-        </div>
+        <%- include('posts', { post, user, badgeColorDecider }) %>
       <% }) %>
     <% } %>
-  </main>
+    <p style="text-align: center; color: var(--color-text-medium); margin-top: 1rem; padding-bottom: 2rem;">— You've reached the end of the club feed —</p>
+  </div>
 </body>
 </html>

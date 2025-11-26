@@ -1,0 +1,41 @@
+<div class="post-card">
+  <div class="post-header">
+    <div class="author-info">
+        <div class="author-avatar <%= badgeColorDecider(post.admin, post.member) %>">
+          <%= user.member || post.owner_id === user.id ? `${post.fname[0]} ${post.lname[0]}` : '?' %>
+        </div>
+        <span class="author-name"><%= user.member || post.owner_id === user.id ? `${post.fname} ${post.lname}` : 'Anonymous' %></span>
+        <% if (post.member) { %>
+          <span class="badge-base badge-member">club-member</span>
+        <% } %>
+        <% if (post.admin) { %>
+          <span class="badge-base badge-admin">administrator</span> 
+        <% } %>
+    </div>
+    <% if (user.member) { %>
+    <span class="post-date">
+      <%
+        function shortTimeAgo(createdAt) {
+          const then = new Date(createdAt).getTime();
+          const now = Date.now();
+          const diff = Math.floor((now - then) / 1000); // seconds
+
+          if (diff < 60) return diff + "s";       // seconds
+          const mins = Math.floor(diff / 60);
+          if (mins < 60) return mins + "m";       // minutes
+          const hours = Math.floor(mins / 60);
+          if (hours < 24) return hours + "h";     // hours
+          const days = Math.floor(hours / 24);
+          if (days < 7) return days + "d";        // days
+          const weeks = Math.floor(days / 7);
+          if (weeks < 4) return weeks + "w";      // weeks
+
+          return new Date(createdAt).toLocaleDateString(); // older than 4 weeks
+        }
+      %>
+      <%= shortTimeAgo(post.created_at) %>
+    </span>
+    <% } %>
+  </div>
+  <p class="post-content"><%= post.message %></p>
+</div>
