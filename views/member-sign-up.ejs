@@ -4,25 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Be a Member</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div>
-    <h1>Member Sign Up</h1>
+  <header class="header">
+    <div class="header-content">
+      <h1 class="logo">SMC</h1>
+      <nav class="nav-buttons">
+        <a href="/" class="nav-link-btn">
+          Home
+        </a>
+      </nav>
+    </div>
+  </header>
+  <div class="form-container">
+    <h2 class="form-title">Club Member Enrollment</h2>
+    <p class="form-subtitle">Enter your unique membership code below to get access.</p>
+
     <% if (errors.length > 0) { %>
-      <ul>
-        <% errors.forEach(err => { %>
-          <li><%= err %></li>
-        <% }) %>
-      </ul>
+      <div id="login-error-display" class="error-display">
+        <ul class="error-list">
+          <% errors.forEach(error => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      </div>
     <% } %>
-    <form action="/member-sign-up" method="post">
-      <input type="hidden" name="id" value="<%= user.id %>">
-      <label for="code">
-        SECRET CODE:
-        <input type="text" name="code" id="code" required>
-      </label>
-      <button type="submit">SUBMIT</button>
+
+    <form action="/member-sign-up" method="post" class="form-layout">
+      <div class="form-field">
+        <label for="member_code" class="form-label">Membership Code</label>
+        <input type="text" id="member_code" name="code" required class="form-input" placeholder="e.g., ivanpogi">
+      </div>
+      <button type="submit" class="form-submit-btn">
+        Submit Member Code
+      </button>
     </form>
+    
+    <p class="form-footer-link">
+      <a href="/" class="form-link">
+        ← Go back to home
+      </a>
+    </p>
   </div>
 </body>
 </html>
